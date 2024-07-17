@@ -69,4 +69,19 @@ router.delete("/delete-by-id/:id", (req, res) => {
   }
 });
 
+// Toggle done status by ID
+router.patch("/toggle-done-by-id/:id", (req, res) => {
+  const { id } = req.params;
+  const todo = todos.find((t) => t.id === id);
+  if (todo) {
+    todo.done = !todo.done;
+    res.json({ message: "Todo status toggled successfully", todo });
+  } else {
+    res.json({
+      message:
+        "The Todo ID you are looking for does not exist, please check the ID",
+    });
+  }
+});
+
 module.exports = router;
